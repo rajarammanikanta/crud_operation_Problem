@@ -2,6 +2,7 @@ import React, { useState,useEffect} from 'react';
 import { useHistory, useLocation ,useParams} from 'react-router-dom';
 import {toast} from 'react-toastify'
 import axios from 'axios'
+import Header from './Header';
 import './AddEdit.css';
 
 
@@ -36,7 +37,7 @@ const getSingleUser=async(id)=>{
   const addUser=async(data)=>{
     const response=await axios.post("http://localhost:4000/user",data); 
     if(response.status===200){
-        toast.success("sucessfully added details");
+        toast.success(response.data);
 
     }
   }
@@ -52,17 +53,19 @@ const getSingleUser=async(id)=>{
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(!profile_url || !name || !email){
-        toast.error("Please provide value into each input field");
-    }
-    else{
-       if(!id){
-        addUser(state);
-       }
-       else{
-        updateUser(state,id);
-       }
-    }
+
+   
+        if(!id){
+            addUser(state);
+        }
+        else{
+            updateUser(state,id)
+        }
+
+      
+
+      setTimeout(()=>history.push("/"));
+  
 
    
   };
@@ -73,6 +76,8 @@ const getSingleUser=async(id)=>{
   };
 
   return (
+    <>
+    <Header/>
     <div style={{ marginTop: '100px' }}>
       <form
         style={{ margin: 'auto', padding: '15px', maxWidth: '400px', alignContent: 'center' }}
@@ -114,6 +119,9 @@ const getSingleUser=async(id)=>{
         <input type="submit" value={id ? "Update": "Add"} />
       </form>
     </div>
+
+    </>
+    
   );
 };
 

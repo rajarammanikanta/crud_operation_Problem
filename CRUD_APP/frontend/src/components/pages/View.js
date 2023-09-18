@@ -1,6 +1,7 @@
 import React,{useState,useEffect}from 'react'
 import {useParams,Link} from 'react-router-dom' 
 import axios from "axios"
+import Header from './Header'
 import './view.css' 
 
 
@@ -23,6 +24,8 @@ const View=()=>{
      }
 
     return(
+        <>
+        <Header/>
         <div style={{marginTop: "150px"}}>
           <div className='card-header'>
             <p>User Profile Details</p>
@@ -33,7 +36,7 @@ const View=()=>{
             <br/>
             <br/>
             <strong>Profile:</strong>
-            <span>{user && user.profile_url}</span>
+            <span><img src={user && user.profile_url} alt="profile"/></span>
             <br/>
             <br/>
             <strong>Name:</strong>
@@ -49,6 +52,8 @@ const View=()=>{
             </Link>
           </div>
         </div>
+        </>
+       
     )
 }
 
